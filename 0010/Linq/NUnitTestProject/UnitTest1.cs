@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace NUnitTestProject
 {
-    public class Tests
+    public class UnitTests
     {
         [SetUp]
         public void Setup()

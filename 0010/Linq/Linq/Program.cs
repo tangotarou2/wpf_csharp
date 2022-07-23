@@ -11,5 +11,9 @@ namespace Linq
             obj.main();
             Console.WriteLine("Hello World!");
         }
+
+        void test(){
+
+        }
     }
 }
