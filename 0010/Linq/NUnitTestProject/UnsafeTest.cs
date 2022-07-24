@@ -171,10 +171,27 @@ namespace NUnitTestProject
                 }
 
                 { // C# 7.3から
-                    Span<int> x1 = stackalloc int[3] { 0xEF, 0xBB, 0xBF };
-                    Span<int> x3 = stackalloc[] { 0xEF, 0xBB, 0xBF };
 
-                    // C# 8.0から
+                    //、ガベージ コレクションの対象外 、fixed ステートメントを使用してピン留めする必要はありません。
+                    // unsafe 不要
+                    //stackallocしたメモリは、そのブロックを抜けると解放されてしまう。
+
+                    Span<int> x1 = stackalloc int[3] { 0xEF, 0xBB, 0xBF };
+                    ReadOnlySpan<int> x3 = stackalloc[] { 0xEF, 0xBB, 0xBF };
+                    
+                    unsafe {
+                    //通常はunsafe が必要
+                        int* numbers = stackalloc int[8];
+                    }
+                }
+
+                // https://ufcpp.net/study/csharp/sp_unsafe.html
+                // C# 8.0から
+                {
+                    /*
+                     特に、C# 8.0 では式中の stackalloc が認められて気軽に書きやすくなったので注意が必要です。
+                     解決方法ですが、関数を抜ければ解放されるので、以下のようにローカル関数を1個挟むだけでよかったりします。
+                     */
                     for (int i = 0; i < 2; i++) {
                         // 別関数を挟めば大丈夫(ローカル関数でも可)
                         loopBody();
