@@ -9,6 +9,10 @@ namespace NUnitTestProject
 
     public class TestBass
     {
+        public void Debug_Write(string sz)
+        {
+            Console.Write(sz);
+        }
         public void DebugLog(string sz)
         {
             Console.WriteLine(sz);
@@ -16,6 +20,45 @@ namespace NUnitTestProject
         public void Debug_Log(string sz)
         {
             DebugLog(sz);
+        }
+
+        public static bool ApproximatelyEqualEpsilon(float a, float b, float epsilon)
+        {
+            const float floatNormal = (1 << 23) * float.Epsilon;
+            float absA = Math.Abs(a);
+            float absB = Math.Abs(b);
+            float diff = Math.Abs(a - b);
+
+            if (a == b) {
+                // Shortcut, handles infinities
+                return true;
+            }
+
+            if (a == 0.0f || b == 0.0f || diff < floatNormal) {
+                // a or b is zero, or both are extremely close to it.
+                // relative error is less meaningful here
+                return diff < (epsilon * floatNormal);
+            }
+
+            // use relative error
+            return diff / Math.Min((absA + absB), float.MaxValue) < epsilon;
+        }
+
+        public static bool Approximately(float x, float y)
+        {
+            float gosa = 0.01f;
+            if ((x-gosa) < y && y < x+gosa) {
+                return true;
+            }
+            return false;
+        }
+        public static bool Approximately(double x, double y)
+        {
+            var gosa = 0.01;
+            if ((x-gosa) < y && y < x+gosa) {
+                return true;
+            }
+            return false;
         }
     }
 
