@@ -181,7 +181,6 @@ namespace NUnitTestProject
                                     break;
                                 default:
                                     throw new Exception("default");
-                                    break;
                                 }
 
 

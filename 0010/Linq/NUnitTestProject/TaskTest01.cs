@@ -10,8 +10,6 @@ namespace NUnitTestProject
 {
     class TaskTest01
     {
-
-
         private void HeavyMethod(int x)
         {
             Thread.Sleep(10); // てきとーに時間を潰す
